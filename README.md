@@ -13,7 +13,8 @@
 |![](./docs/mui_demo.png)  |![](./docs/2048.png)      |
 |![](./docs/player.png)    |![](./docs/tetris.png)    |
 
-* MUI is supported by [`mfb-backend` branch](https://github.com/malisipi/mui/tree/mfb-backend)
+* MUI (UI Kit) is supported by [`mfb-backend` branch](https://github.com/malisipi/mui/tree/mfb-backend)
+* MUIMPV (The video player widget for MUI) is supported by [`mfb-backend` branch](https://github.com/malisipi/muimpv/tree/mfb-backend). (Requires MUI)
 * Most basic gg application can be ported with changing `import gg` with `import malisipi.mfb as gg`. (Also `mfb.context` must be mutable as different than gg to draw.)
 
 ## License

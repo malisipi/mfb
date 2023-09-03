@@ -17,6 +17,7 @@ pub type FNChar = fn (c u32, data voidptr)
 
 pub type KeyCode = keyboard.KeyCode
 pub type Image = vpng.PngFile
+pub type Pixel = vpng.Pixel // extends gg api
 
 pub struct Config {
 	bg_color		gx.Color

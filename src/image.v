@@ -5,12 +5,13 @@ import gx
 import v.embed_file
 
 [direct_array_access]
-pub fn (mut context Context) draw_image (x f32, y f32, w f32, h f32, img Image) {
-	for ic in 0..int(w) {
-		for ir in 0..int(h) {
-			pixel := img.pixels[int(ir*(f32(img.height)/h)*img.width)+int(ic*(f32(img.width)/w))]
+pub fn (mut context Context) draw_image (x f32, y f32, bw f32, bh f32, img Image) {
+	for xbh in 0..int(bh) {
+		for xbw in 0..int(bw) {
+			index := int(xbh*img.height/bh)*img.width+int(xbw*img.width/bw)
+			pixel := img.pixels[index]
 			if pixel.alpha < 127 { continue }
-			context.draw_pixel(x+ic, y+ir, gx.Color{
+			context.draw_pixel(x+xbw, y+xbh, gx.Color{
 				r: pixel.red
 				g: pixel.green
 				b: pixel.blue
