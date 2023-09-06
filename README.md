@@ -6,6 +6,22 @@
 * Keyboard support (a little buggy)
 * Mouse support
 
+## Why MFB is exist while we have V's GG library?
+
+| GG  | MFB |
+|-----|-----|
+| GG is a graphic library for designed desktop applications. It can be used any way as a desktop application. | MFB is designed a framebuffer graphic library for Linux. |
+| Designed for desktop applications | Designed for Linux TTY |
+| Require a (X11) display server    | Don't require a display server |
+| GG is not written in Pure V. (GG is a wrapper for sokol graphic library) | MFB is written in Pure V |
+| Supports unicode input/mouse | Supports only english layout (for now)/mouse |
+| GG is not support framebuffer<sup>1</sup> | MFB's first goal is supporting frambuffer |
+| GG has more powerful API | MFB has less powerful API |
+
+<sup>1</sup>: It doesn't seems like GG will supported in future. [floooh/sokol #702](https://github.com/floooh/sokol/issues/702)
+
+> After all, You can understand MFB is not enemy of GG. MFB's goal is making applications that made with GG have more platform and user.
+
 ## Support
 
 |                          |                          |
