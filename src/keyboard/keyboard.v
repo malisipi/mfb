@@ -65,6 +65,7 @@ pub enum KeyCode {
 	u
 	v
 	w
+	x
 	y
 	z
 	enter	= 13
