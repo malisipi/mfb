@@ -98,6 +98,9 @@ pub fn (mut context Context) end (){
 	} else {
 		context.draw_rect_filled(context.mouse_manager.pos_x, context.mouse_manager.pos_y, 8, 8, gx.green) // cursor
 	}
+	$if show_fps? {
+		context.draw_text(0, 0, int(f32(1000) / f32(context.draw_time / time.millisecond)).str() + " FPS", align:.left, vertical_align:.top, color:gx.yellow)
+	}
 	context.framebuffer.write_to(0, context.virtualbuffer) or {}
 }
 
@@ -106,8 +109,15 @@ pub fn (mut context Context) run (){
 		context.init_fn(context.user_data)
 	}
 	for ;; {
+		start_time := time.now()
 		context.frame_fn(context.user_data)
-		time.sleep(1000/30*time.millisecond)
+		$if !unlimited_fps? {
+			frame_end_time := time.now()
+			frame_draw_time := frame_end_time - start_time
+			time.sleep(int(f32(1000)/context.fps_limit*1000000)*time.nanosecond - frame_draw_time)
+		}
+		end_time := time.now()
+		context.draw_time = end_time - start_time
 	}
 }
 

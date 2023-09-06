@@ -2,8 +2,9 @@ module mfb
 
 import os
 import gx
-import vpng
+import time
 // built-in
+import vpng
 import mouse
 import keyboard
 
@@ -73,6 +74,8 @@ pub mut:
 	text_config		gx.TextCfg = gx.TextCfg {size: 16}
 	allowed_area		Rect = Rect{x:0, y:0, width: -1, height: -1}
 	active_cursor		Image
+	draw_time		time.Duration = time.millisecond
+	fps_limit		f32 = 30.0
 	
 	// compability only (not used)
 	frame u64
