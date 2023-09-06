@@ -61,22 +61,36 @@ fn (mut manager Manager) controller () {
 			manager.right_button = false
 		}
 		
-		if mouse_code[1] < 127 {
-			manager.pos_x = math.min(manager.screen_width, manager.pos_x+mouse_code[1])
+		mut trigger_move_fn := false
+
+		pos_x := if mouse_code[1] < 127 {
+			math.min(manager.screen_width, manager.pos_x+mouse_code[1])
 		} else {
-			manager.pos_x = math.max(0, manager.pos_x-math.abs(255-mouse_code[1]))
-		}
-		
-		if mouse_code[2] < 127 {
-			manager.pos_y = math.max(0, manager.pos_y-mouse_code[2])
-		} else {
-			manager.pos_y = math.min(manager.screen_height, manager.pos_y+math.abs(255-mouse_code[2]))
+			math.max(0, manager.pos_x-math.abs(255-mouse_code[1]))
 		}
 
-		manager.move_fn (
-			manager.pos_x,
-			manager.pos_y
-		)
+		if pos_x != manager.pos_x {
+			manager.pos_x = pos_x
+			trigger_move_fn = true
+		}
+		
+		pos_y := if mouse_code[2] < 127 {
+			math.max(0, manager.pos_y-mouse_code[2])
+		} else {
+			math.min(manager.screen_height, manager.pos_y+math.abs(255-mouse_code[2]))
+		}
+
+		if pos_y != manager.pos_y {
+			manager.pos_y = pos_y
+			trigger_move_fn = true
+		}
+
+		if trigger_move_fn {
+			manager.move_fn (
+				manager.pos_x,
+				manager.pos_y
+			)
+		}
 	}
 }
 
