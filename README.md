@@ -20,6 +20,7 @@
 ## Flags
 
 |Flag|Description|
+|-|-|
 |`-d show_fps`| Shows fps count |
 |`-d unlimited_fps`| Removes fps limit (It can be cause HIGH CPU usage) |
 
