@@ -24,7 +24,6 @@ pub mut:
 	unclick_fn	fn (int, int, int) = unsafe { nil }
 	left_button	bool
 	right_button	bool
-	trigger_drag	u8
 }
 
 fn (mut manager Manager) controller () {
@@ -32,7 +31,6 @@ fn (mut manager Manager) controller () {
 		mouse_code := manager.mouse.read_bytes(3)
 		if mouse_code[0] == 9 && !manager.left_button {
 			manager.left_button = true
-			manager.trigger_drag = 1
 			manager.click_fn (
 				0,
 				manager.pos_x,
@@ -40,14 +38,12 @@ fn (mut manager Manager) controller () {
 			)
 		} else if mouse_code[0] == 10 && !manager.right_button {
 			manager.right_button = true
-			manager.trigger_drag = 1
 			manager.click_fn (
 				1,
 				manager.pos_x,
 				manager.pos_y
 			)
 		} else if mouse_code[0] == 8 || mouse_code[0] == 11 {
-			manager.trigger_drag = 0
 			if manager.left_button {
 				manager.unclick_fn (
 					0,
@@ -77,16 +73,10 @@ fn (mut manager Manager) controller () {
 			manager.pos_y = math.min(manager.screen_height, manager.pos_y+math.abs(255-mouse_code[2]))
 		}
 
-		if manager.trigger_drag == 0 {
-			continue
-		} else if manager.trigger_drag == 1 {
-			manager.trigger_drag = 2
-		} else if manager.trigger_drag == 2 {
-			manager.move_fn (
-				manager.pos_x,
-				manager.pos_y
-			)
-		}
+		manager.move_fn (
+			manager.pos_x,
+			manager.pos_y
+		)
 	}
 }
 
