@@ -27,7 +27,7 @@
 |                          |                          |
 |--------------------------|--------------------------|
 |![](./docs/mui_demo.png)  |![](./docs/2048.png)      |
-|![](./docs/player.png)    |![](./docs/tetris.png)    |
+| ? |![](./docs/tetris.png)    |
 
 * MUI (UI Kit) is supported by [`mfb-backend` branch](https://github.com/malisipi/mui/tree/mfb-backend)
 * MUIMPV (The video player widget for MUI) is supported by [`mfb-backend` branch](https://github.com/malisipi/muimpv/tree/mfb-backend). (Requires MUI)
@@ -44,5 +44,6 @@
 
 * This project was licensed by Apache 2.0 License (`./LICENSE`)
 * VPNG module was licensed by MIT License (`./vpng`) (The module was edited for making maximum compatibility with the library. The original module is [here](https://github.com/Henrixounez/vpng))
-* `./examples/mit` was licensed by MIT License (`./examples/mit`)
+* `./examples/ported/mit` was licensed by MIT License (`./examples/ported/mit`)
 * [Phinger Cursors](https://github.com/phisch/phinger-cursors/) is licensed by CC-BY-SA-4.0 (Author: phisch (Philipp Schaffrath) on GitHub) (`./assets/cursor`)
+* [Google Icons](https://fonts.google.com/icons) is licensed by Apache 2.0 (`./examples/mfb-player/assets`).
