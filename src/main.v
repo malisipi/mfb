@@ -7,27 +7,18 @@ import gx
 import mouse
 import keyboard
 
+const (
+	screen_information = get_screen_information()
+)
+
 pub fn new_context(args Config) &Context {
-    if !(
-    		os.exists("/dev/fb0") && 
-    		os.exists("/sys/class/graphics/fb0/virtual_size") &&
-    		os.exists("/sys/class/graphics/fb0/stride")
-    	){
-			panic("Framebuffer output is not supported")
-    }
-
-	virtual_size := os.read_file("/sys/class/graphics/fb0/virtual_size") or { panic("Unable to read screen sizes") }
-	screen_width := virtual_size.split(",")[0].int()
-	screen_height := virtual_size.split(",")[1].int()
-	screen_width_ext := int(os.read_file("/sys/class/graphics/fb0/stride") or { panic("Unable to get extended width") }.int()/4)
-
 	mut context := &Context{
 		framebuffer:	os.open_file("/dev/fb0","w") or { panic("Unable to open framebuffer device") }
-		width:			screen_width
-		height:			screen_height
-		width_extended:		screen_width_ext
-		virtualbuffer:		[]u8{len: screen_width_ext*768*4, cap: screen_width_ext*768*4, init:255}
-		max_buffer_size:	u64(screen_width_ext*768*4)
+		width:			screen_information.width
+		height:			screen_information.height
+		width_extended:		screen_information.width_ext
+		virtualbuffer:		[]u8{len: screen_information.width_ext*768*4, cap: screen_information.width_ext*768*4, init:255}
+		max_buffer_size:	u64(screen_information.width_ext*768*4)
 		
 		bg_color:		args.bg_color
 		user_data:		args.user_data
@@ -144,8 +135,8 @@ pub fn (mut context Context) scissor_rect (x int, y int, w int, h int) {
 // only for gg compability
 pub fn window_size () &Size {
 	return &Size {
-		width: 800
-		height: 600
+		width: screen_information.width
+		height: screen_information.height
 	}
 }
 

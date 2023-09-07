@@ -157,3 +157,16 @@ pub enum Modifier {
 	alt // (1<<2)
 	super // (1<<3)
 }
+
+pub enum Cursor {
+	default = 0
+	text = 1
+	pointer = 2
+	move = 3
+}
+
+struct ScreenInformation {
+	width		int
+	height		int
+	width_ext	int
+}

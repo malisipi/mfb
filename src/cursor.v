@@ -9,13 +9,6 @@ const (
 	]
 )
 
-pub enum Cursor {
-	default = 0
-	text = 1
-	pointer = 2
-	move = 3
-}
-
 pub fn (mut context Context) set_cursor (cursor Cursor) {
 	context.active_cursor = cursors[int(cursor)]
 }
