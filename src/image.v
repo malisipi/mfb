@@ -22,10 +22,23 @@ pub fn (mut context Context) draw_image (x f32, y f32, bw f32, bh f32, img Image
 
 [direct_array_access]
 pub fn (mut context Context) create_image (path string)! Image {
+	return create_image(path)
+}
+
+// extends gg api
+[direct_array_access]
+pub fn (mut context Context) create_image_from_embed_file (path embed_file.EmbedFileData)! Image {
+	return create_image_from_embed_file(path)
+}
+
+// extends gg api
+[direct_array_access]
+pub fn create_image (path string)! Image {
 	return vpng.read(path)!
 }
 
-[direct_array_access] // extends gg api
-pub fn (mut context Context) create_image_from_embed_file (path embed_file.EmbedFileData)! Image {
+// extends gg api
+[direct_array_access]
+pub fn create_image_from_embed_file (path embed_file.EmbedFileData)! Image {
 	return vpng.read_from_embed_file(path)!
 }

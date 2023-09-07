@@ -81,7 +81,7 @@ pub fn new_context(args Config) &Context {
 		}
 	)
 
-	context.active_cursor = context.create_image_from_embed_file($embed_file("../assets/cursor.png")) or { Image{} }
+	context.set_cursor(.default)
 
 	return context
 }

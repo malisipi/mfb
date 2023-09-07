@@ -45,4 +45,4 @@
 * This project was licensed by Apache 2.0 License (`./LICENSE`)
 * VPNG module was licensed by MIT License (`./vpng`) (The module was edited for making maximum compatibility with the library. The original module is [here](https://github.com/Henrixounez/vpng))
 * `./examples/mit` was licensed by MIT License (`./examples/mit`)
-* The cursor is licensed by CC-BY-SA-4.0 (Author: phisch (Philipp Schaffrath) on GitHub) (https://github.com/phisch/phinger-cursors/blob/master/assets/svg/32/light/left_ptr.svg) (`./assets/cursor.png`)
+* [Phinger Cursors](https://github.com/phisch/phinger-cursors/) is licensed by CC-BY-SA-4.0 (Author: phisch (Philipp Schaffrath) on GitHub) (`./assets/cursor`)
