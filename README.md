@@ -24,10 +24,24 @@
 
 ## Support
 
-|                          |                          |
-|--------------------------|--------------------------|
-|![](./docs/mui_demo.png)  |![](./docs/2048.png)      |
-| ? |![](./docs/tetris.png)    |
+<table>
+    <tr>
+        <td>
+            <video src="https://github.com/malisipi/mfb/assets/87281783/166ad588-44aa-48f5-82ec-94332d64f749"></video>
+        </td>
+        <td>
+            <img src="./docs/2048.png"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="./docs/mui_demo.png"/>
+        </td>
+        <td>
+            <img src="./docs/tetris.png"/>
+        </td>
+    </tr>
+</table>
 
 * MUI (UI Kit) is supported by [`mfb-backend` branch](https://github.com/malisipi/mui/tree/mfb-backend)
 * MUIMPV (The video player widget for MUI) is supported by [`mfb-backend` branch](https://github.com/malisipi/muimpv/tree/mfb-backend). (Requires MUI)
