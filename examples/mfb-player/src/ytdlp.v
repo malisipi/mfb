@@ -19,6 +19,7 @@ fn load_online_media (event_details mui.EventDetails, mut app &mui.Window, mut a
 		app.create_dialog(typ:"textbox", title:language_pack.media_title)
 		answer := app.wait_and_get_answer()
 		if answer == "" { return }
+		app_data.user_interaction = true
 		stream_url := get_online_media(app_data.active_mode == .music, answer)
 		app.get_object_by_id("playing_media")[0]["text"].str = answer
 		app_data.playing_media = "@net/"+(app_data.active_mode == .music).str()+"/"+answer.replace("@net/","").replace("/","")
