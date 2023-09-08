@@ -16,7 +16,7 @@ fn get_online_media (is_music bool, raw_search string) string {
 fn load_online_media (event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
 	mut video := muimpv.get_video(mut app, "mpv")
 	async_loader := fn [mut app, mut video, mut app_data] () {
-		app.create_dialog(typ:"textbox", title:language_pack["media_title"])
+		app.create_dialog(typ:"textbox", title:language_pack.media_title)
 		answer := app.wait_and_get_answer()
 		if answer == "" { return }
 		stream_url := get_online_media(app_data.active_mode == .music, answer)

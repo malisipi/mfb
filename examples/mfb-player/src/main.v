@@ -24,14 +24,14 @@ fn main(){
 	mut app:=mui.create(app_data: app_data, draw_mode:.linux_dark, init_fn: &init_fn)
 	muimpv.load_into_app(mut app)
 
-	app.label(id: "music_mode" x: "# 50%x -20", y: 5, width:200, height:20, text_align:2, text:language_pack["music"])
+	app.label(id: "music_mode" x: "# 50%x -20", y: 5, width:200, height:20, text_align:2, text:language_pack.music)
 	app.switch(id: "mode_changer", x: "50%x -20", y: 5, width: 40, height:20, onchange: change_mode)
-	app.label(id: "videos_mode" x: "50%x +20", y: 5, width:200, height:20, text_align:0, text:language_pack["videos"])
-	app.textbox(id: "playlist_filter", x: "# 30", y: 30, height: 30, width: "100%x -60" placeholder: language_pack["filter_media"], onchange:update_filter)
+	app.label(id: "videos_mode" x: "50%x +20", y: 5, width:200, height:20, text_align:0, text:language_pack.videos)
+	app.textbox(id: "playlist_filter", x: "# 30", y: 30, height: 30, width: "100%x -60" placeholder: language_pack.filter_media, onchange:update_filter)
 	app.list(id: "playlist", table: make_table(app_data.music_list.filtered_list), x: 30, y: 60, width: "100%x -90", height: "100%y -130", row_height: 40, onchange:change_media)
 	app.scrollbar(id: "playlist_scrollbar", x: "# 30", y: 60, width: 30, height: "100%y -130", vertical: true, connected_widget: app.get_object_by_id("playlist")[0])
 	app.label(id: "timing" x: "# 10", y: "# 35", width:200, height:20, text: "00:00/00:00", text_align:2)
-	app.label(id: "playing_media", x: "20%x", y: "# 40" width: "60%x", height:20, text: language_pack["nothing_playing"])
+	app.label(id: "playing_media", x: "20%x", y: "# 40" width: "60%x", height:20, text: language_pack.nothing_playing)
 	app.slider(id:"time_slider", x:70, y:"# 10", width:"100%x -80", height:20, onclick:seek_time, onunclick:seek_time, onchange:seek_time, value_map:fn [mut app, app_data] (the_time int) string {
 		app.get_object_by_id("timing")[0]["text"].str = "${the_time/60:02}:${the_time%60:02}/${app_data.media_duration/60:02}:${app_data.media_duration%60:02}"
 		return ""
