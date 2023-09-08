@@ -39,11 +39,12 @@ fn main(){
 	app.rect(id: "compact_mode_control_bg", x: 0, y: "# 0", width: "100%x", height: "70", background: gx.black  hidden: true)
 	
 	new_colorized_icon(mut app, "play", id: "control_play", x: 10, y: "# 10", width: 50, height: 50, onclick: play_pause_handler)
-	new_colorized_icon(mut app, "loop_off", id: "control_loop", x: 70, y: "# 35", width: 20, height: 20, onclick: change_loop)
-	new_colorized_icon(mut app, "shuffle_off", id: "control_shuffle", x: 95, y: "# 35", width: 20, height: 20, onclick: change_shuffle)
-	new_colorized_icon(mut app, "online_music", id: "control_online_media", x: 120, y: "# 35", width: 20, height: 20, onclick: load_online_media)
-	new_colorized_icon(mut app, "enter_fullscreen", id: "control_fullscreen", x: 145, y: "# 35", width: 20, height: 20, onclick: toggle_fullscreen, hidden: true)
-	app.slider(id:"control_volume", x:170, y:"# 35", width:40, height:20, value_min:0, value:get_system_volume(), value_max:150 onchange:change_volume)
+	new_colorized_icon(mut app, "next", id: "control_next", x: 70, y: "# 35", width: 20, height: 20, onclick: next_media)
+	new_colorized_icon(mut app, "loop_off", id: "control_loop", x: 95, y: "# 35", width: 20, height: 20, onclick: change_loop)
+	new_colorized_icon(mut app, "shuffle_off", id: "control_shuffle", x: 120, y: "# 35", width: 20, height: 20, onclick: change_shuffle)
+	new_colorized_icon(mut app, "online_music", id: "control_online_media", x: 145, y: "# 35", width: 20, height: 20, onclick: load_online_media)
+	new_colorized_icon(mut app, "enter_fullscreen", id: "control_fullscreen", x: 170, y: "# 35", width: 20, height: 20, onclick: toggle_fullscreen, hidden: true)
+	app.slider(id:"control_volume", x:195, y:"# 35", width:40, height:20, value_min:0, value:get_system_volume(), value_max:150 onchange:change_volume)
 	
 	app.label(id: "battery" x: "# 5", y: 5, width:200, height:20, text_align:2, text:"100%")
 	battery_updater := fn [mut app] () {

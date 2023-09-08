@@ -18,6 +18,7 @@ const (
 		"loop_off": load_image_with_color (def_image_color, $embed_file("../assets/repeat_FILL1_wght500_GRAD0_opsz48.png"))
 		"loop_once": load_image_with_color (def_image_color, $embed_file("../assets/repeat_one_on_FILL1_wght500_GRAD0_opsz48.png"))
 		"loop_on": load_image_with_color (def_image_color, $embed_file("../assets/repeat_on_FILL1_wght500_GRAD0_opsz48.png"))
+		"next": load_image_with_color(def_image_color, $embed_file("../assets/skip_next_FILL1_wght500_GRAD0_opsz48.png"))
 		"shuffle_off": load_image_with_color (def_image_color, $embed_file("../assets/shuffle_FILL1_wght500_GRAD0_opsz48.png"))
 		"shuffle_on": load_image_with_color (def_image_color, $embed_file("../assets/shuffle_on_FILL1_wght500_GRAD0_opsz48.png"))
 		"online_music": load_image_with_color (def_image_color, $embed_file("../assets/library_music_FILL1_wght500_GRAD0_opsz48.png"))
