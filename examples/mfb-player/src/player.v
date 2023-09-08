@@ -2,20 +2,59 @@ module main
 
 import malisipi.mui
 import malisipi.muimpv
+import rand
 
 fn change_media (event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData) {
-	mut video := muimpv.get_video(mut app, "mpv")
-	
+	app_data.user_interaction = true
 	filtered_list := if app_data.active_mode == .music {
 		app_data.music_list.filtered_list
 	} else {
 		app_data.videos_list.filtered_list
 	}
 	new_track := filtered_list[event_details.value.int()]
+	load_media(new_track, mut app, mut app_data)
+}
+
+fn load_media (new_track string, mut app &mui.Window, mut app_data &AppData) {
+	mut video := muimpv.get_video(mut app, "mpv")
+
 	app.get_object_by_id("playing_media")[0]["text"].str = new_track.split("/")#[-1..][0]
 	app_data.playing_media = new_track
 	video.load_media(new_track)
 	video.play()
+}
+
+fn next_media(_ mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
+	filtered_list := if app_data.active_mode == .music {
+		app_data.music_list.filtered_list
+	} else {
+		app_data.videos_list.filtered_list
+	}
+
+	if filtered_list.len < 1 { return }
+
+	mut new_track_index := 0
+
+	if !app_data.shuffle {
+		track_index := filtered_list.index(app_data.playing_media)
+		if track_index == -1 {
+			unsafe {
+				goto __next_media_shuffle
+			}
+		} else if track_index + 1 != filtered_list.len {
+			new_track_index = track_index + 1
+		}
+		unsafe {
+			goto __next_media_load_media
+		}
+	}
+
+	__next_media_shuffle:
+	new_track_index = rand.int_in_range(0, filtered_list.len) or { 0 }
+
+	__next_media_load_media:
+	new_track := filtered_list[new_track_index]
+	load_media(new_track, mut app, mut app_data)
 }
 
 fn video_event_handler(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
@@ -24,11 +63,19 @@ fn video_event_handler(event_details mui.EventDetails, mut app &mui.Window, mut 
 	} else if event_details.event == "duration_update" {
 		new_duration := event_details.value.int()
 		app_data.media_duration = new_duration
-		if new_duration == 0 {
+		if new_duration == 0 && !app_data.user_interaction {
 			play_pause_handler(mui.EventDetails{value:"pause"}, mut app, mut app_data)
 			app.get_object_by_id("time_slider")[0]["val"].num = 0
+			if app_data.loop == .once {
+				play_pause_handler(mui.EventDetails{value:"play"}, mut app, mut app_data)
+			} else if app_data.loop == .on {
+				next_media(event_details, mut app, mut app_data)
+			}
 		} else {
 			play_pause_handler(mui.EventDetails{value:"play"}, mut app, mut app_data)
+		}
+		if app_data.user_interaction {
+			app_data.user_interaction = false
 		}
 		app.get_object_by_id("time_slider")[0]["vlMax"].num=new_duration
 	}
@@ -70,6 +117,33 @@ fn seek_time(event_details mui.EventDetails, mut app &mui.Window, mut app_data &
 fn init_fn(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
 	mut video := muimpv.get_video(mut app, "mpv")
 	video.init(mut app)
+}
+
+fn change_loop (event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
+	if app_data.loop == .off {
+		// loop once
+		change_icon(mut app, "loop_once", "control_loop")
+		app_data.loop = .once
+	} else if app_data.loop == .once {
+		// loop on
+		change_icon(mut app, "loop_on", "control_loop")
+		app_data.loop = .on
+	} else {
+		// loop off
+		change_icon(mut app, "loop_off", "control_loop")
+		app_data.loop = .off
+	}
+}
+
+fn change_shuffle (event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
+	if app_data.shuffle {
+		// shuffle off
+		change_icon(mut app, "shuffle_off", "control_shuffle")
+	} else { 
+		// shuffle on
+		change_icon(mut app, "shuffle_on", "control_shuffle")
+	}
+	app_data.shuffle=!app_data.shuffle
 }
 
 fn change_mode(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){

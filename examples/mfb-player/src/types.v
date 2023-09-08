@@ -16,13 +16,22 @@ mut:
 	filtered_list	[]string
 }
 
+enum LoopType as u8 {
+	off
+	once
+	on
+}
+
 struct AppData {
 mut:
-	music_list		Playlist
-	videos_list		Playlist
+	music_list			Playlist
+	videos_list			Playlist
 	playing_media		string
 	media_duration		int
-	active_mode		PlayingMode
-	is_playing		bool
+	active_mode			PlayingMode
+	is_playing			bool
 	compact_mode		bool
+	shuffle				bool
+	loop				LoopType
+	user_interaction	bool
 }
