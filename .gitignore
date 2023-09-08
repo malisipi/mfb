@@ -25,3 +25,4 @@ bin/
 
 __external
 *.out
+examples/mfb-player/mfb-player
