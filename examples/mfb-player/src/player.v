@@ -58,24 +58,30 @@ fn next_media(_ mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
 }
 
 fn video_event_handler(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
+	mut video := muimpv.get_video(mut app, "mpv")
+	
 	if event_details.event == "time_pos_update" {
 		app.get_object_by_id("time_slider")[0]["val"].num=event_details.value.int()
 	} else if event_details.event == "duration_update" {
 		new_duration := event_details.value.int()
 		app_data.media_duration = new_duration
-		if new_duration == 0 && !app_data.user_interaction {
-			play_pause_handler(mui.EventDetails{value:"pause"}, mut app, mut app_data)
-			app.get_object_by_id("time_slider")[0]["val"].num = 0
-			if app_data.loop == .once {
-				play_pause_handler(mui.EventDetails{value:"play"}, mut app, mut app_data)
-			} else if app_data.loop == .on {
-				next_media(event_details, mut app, mut app_data)
+		if new_duration == 0 {
+			if app_data.user_interaction {
+				video.load_media(get_stream_url(app_data.playing_media))
+			} else {
+				play_pause_handler(mui.EventDetails{value:"pause"}, mut app, mut app_data)
+				app.get_object_by_id("time_slider")[0]["val"].num = 0
+				if app_data.loop == .once {
+					play_pause_handler(mui.EventDetails{value:"play"}, mut app, mut app_data)
+				} else if app_data.loop == .on {
+					next_media(event_details, mut app, mut app_data)
+				}
 			}
 		} else {
 			play_pause_handler(mui.EventDetails{value:"play"}, mut app, mut app_data)
-		}
-		if app_data.user_interaction {
-			app_data.user_interaction = false
+			if app_data.user_interaction {
+				 app_data.user_interaction = false
+			}
 		}
 		app.get_object_by_id("time_slider")[0]["vlMax"].num=new_duration
 	}
